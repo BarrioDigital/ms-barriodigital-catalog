@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/catalog/procedures")
@@ -31,6 +32,15 @@ public class CatalogController {
     @PutMapping("/{id}/decrease-quota")
     public ResponseEntity<ProcedureType> decreaseQuota(@PathVariable Long id) {
         ProcedureType updatedProcedure = catalogService.decreaseQuota(id);
+        return ResponseEntity.ok(updatedProcedure);
+    }
+
+    @PutMapping("/{id}/add-quota")
+    public ResponseEntity<ProcedureType> addQuota(
+            @PathVariable Long id, 
+            @RequestBody Map<String, Integer> body) {
+        Integer addedQuota = body.get("addedQuota");
+        ProcedureType updatedProcedure = catalogService.addQuota(id, addedQuota);
         return ResponseEntity.ok(updatedProcedure);
     }
 }

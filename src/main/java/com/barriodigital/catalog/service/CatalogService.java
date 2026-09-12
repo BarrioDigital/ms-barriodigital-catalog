@@ -39,4 +39,14 @@ public class CatalogService {
         procedure.setAvailableQuota(procedure.getAvailableQuota() - 1);
         return repository.save(procedure);
     }
+
+    @Transactional
+    public ProcedureType addQuota(Long id, Integer quantity) {
+        if (quantity == null || quantity <= 0) {
+            throw new IllegalArgumentException("La cantidad de cupos a agregar debe ser mayor a cero");
+        }
+        ProcedureType procedure = getById(id);
+        procedure.setAvailableQuota(procedure.getAvailableQuota() + quantity);
+        return repository.save(procedure);
+    }
 }
