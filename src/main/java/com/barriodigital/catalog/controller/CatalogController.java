@@ -11,6 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/catalog/procedures")
+@CrossOrigin(origins = "http://localhost:5173") // <-- HABILITA CORS PARA TU FRONTEND REACT
 public class CatalogController {
 
     private final CatalogService catalogService;
