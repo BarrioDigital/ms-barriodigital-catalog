@@ -18,6 +18,18 @@ public class CatalogService {
 
     @Transactional
     public ProcedureType createProcedure(ProcedureType procedureType) {
+        // Validation 1: Evitar duplicados por la combinación [Código + Nombre]
+        if (repository.existsByCodeAndNameIgnoreCase(procedureType.getCode(), procedureType.getName())) {
+            throw new IllegalArgumentException(
+                "Ya existe un trámite registrado con el código '" + procedureType.getCode() + "' y nombre '" + procedureType.getName() + "'"
+            );
+        }
+
+        // Validation 2: Si el cupo disponible no viene o viene en nulo, asignarlo igual al cupo diario
+        if (procedureType.getAvailableQuota() == null) {
+            procedureType.setAvailableQuota(procedureType.getDailyQuota());
+        }
+
         return repository.save(procedureType);
     }
 

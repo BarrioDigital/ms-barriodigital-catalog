@@ -7,7 +7,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "procedure_types")
+@Table(
+    name = "procedure_types",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "uk_code_name", columnNames = {"code", "name"})
+    }
+)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +23,8 @@ public class ProcedureType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    // Quitamos unique = true para permitir repetir código entre trámites distintos
+    @Column(nullable = false)
     private String code;
 
     @Column(nullable = false)

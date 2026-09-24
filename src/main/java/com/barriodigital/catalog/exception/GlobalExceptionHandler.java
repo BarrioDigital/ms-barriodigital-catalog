@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
         Map<String, String> response = new HashMap<>();
         response.put("error", "Registro Duplicado");
-        response.put("message", "El código del trámite ingresado ya existe en el catálogo");
+        response.put("message", "Ya existe un trámite en el catálogo con esa combinación de Código y Nombre.");
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response); // HTTP 409
     }
 
