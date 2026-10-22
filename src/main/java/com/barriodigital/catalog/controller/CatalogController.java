@@ -12,7 +12,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/catalog/procedures")
-@CrossOrigin(origins = "*")
 public class CatalogController {
 
     private final CatalogService catalogService;
